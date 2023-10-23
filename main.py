@@ -4,6 +4,7 @@ import json
 import csv
 from dataclasses import dataclass
 from config import cookies
+from format_emails import split_name, get_email, email_formats
 
 headers = {
     "Csrf-Token": cookies['JSESSIONID'].replace('"','')
@@ -54,16 +55,24 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("company_id")
 parser.add_argument("--output", default="output.csv")
+parser.add_argument("-d", "--domain", required=True)
+parser.add_argument("-f", "--email-format", default="first.last", choices=email_formats.keys())
 args = parser.parse_args()
 
 queryid = get_query_id(args.company_id)
 
 api = API()
 with open(args.output, 'w+') as f:
-    writer = csv.DictWriter(f, ['name','position'])
+    writer = csv.DictWriter(f, ['name','first','last','email','position'])
     writer.writeheader()
     for person in api.get_all(args.company_id, queryid):
         if person.name == "LinkedIn Member":
             continue
-        writer.writerow({'name':person.name, 'position':person.position})
-        print(f"{person.name},{person.position}")
+        names = split_name(person.name)
+        writer.writerow({
+            'name':person.name,
+            'first': names[0],
+            'last': " ".join(names[1:]),
+            'email': get_email(args.email_format, args.domain, person.name),
+            'position':person.position
+        })

@@ -9,8 +9,12 @@ email_formats = {
 
 name_regex = re.compile(r'[\w \.\-,]+')
 
+def split_name(name):
+    return re.findall(name_regex, name)[0].replace(',', '').strip().split()
+
+
 def get_email(email_format, domain, name):
-    names = re.findall(name_regex, name)[0].replace(',', '').strip().split()
+    names = split_name(name)
     # Remove other initials
     names = [x for x in names if '.' not in x]
 
