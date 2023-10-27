@@ -7,16 +7,18 @@ email_formats = {
     "first.last": (lambda names: names[0] + "." + "".join(names[1:])),
 }
 
-name_regex = re.compile(r'[\w \.\-,]+')
+name_regex = re.compile(r'[\w\.\-,]+')
 
 def split_name(name):
-    return re.findall(name_regex, name)[0].replace(',', '').strip().split()
+    return [x.replace(',', '').strip() for x in re.findall(name_regex, name)]
 
 
 def get_email(email_format, domain, name):
     names = split_name(name)
     # Remove other initials
     names = [x for x in names if '.' not in x]
+    # Strip maiden name
+    names[-1] = names[-1].split('-')[0]
 
     name = email_formats[email_format](names)
     name = name.lower().replace("ö", "oe").replace("ü", "ue").replace("ä", "ae").replace("-",'')
@@ -39,7 +41,10 @@ if __name__ == "__main__":
     parser.add_argument("-f", "--email-format", default="first.last", choices=email_formats.keys())
     args = parser.parse_args()
 
-    with open(args.csv_file) as f:
+    with open(args.csv_file) as f, open(args.output_file, 'w+') as f1:
         reader = csv.DictReader(f)
+        writer = csv.DictWriter(f1, reader.fieldnames)
+        writer.writeheader()
         for row in reader:
-            print(get_email(args.email_format, args.domain, row['name']))
+            row['email'] = get_email(args.email_format, args.domain, row['name'])
+            writer.writerow(row)
