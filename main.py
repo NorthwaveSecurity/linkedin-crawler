@@ -26,10 +26,17 @@ class API:
     paging = None
     total = 0
 
+    def __init__(self, debug):
+        self.debug = debug
+        self.json_output = "output.json"
+
     def get_results(self, company_id, queryid, start=0):
         req2 = f"https://www.linkedin.com/voyager/api/graphql?variables=(start:{start},origin:COMPANY_PAGE_CANNED_SEARCH,query:(flagshipSearchIntent:SEARCH_SRP,queryParameters:List((key:currentCompany,value:List({company_id})),(key:resultType,value:List(PEOPLE))),includeFiltersInResponse:false))&&queryId={queryid}"
-        resp = requests.get(req2, cookies=cookies, headers=headers)
-        data = resp.json()['data']['searchDashClustersByAll']
+        resp = requests.get(req2, cookies=cookies, headers=headers).json()
+        if self.debug:
+            with open(self.json_output, 'w+') as f:
+                json.dump(resp, f)
+        data = resp['data']['searchDashClustersByAll']
         self.paging = data['paging']
         elements = data['elements']
 
@@ -55,13 +62,14 @@ import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("company_id")
 parser.add_argument("--output", default="output.csv")
+parser.add_argument("--debug", action="store_true")
 parser.add_argument("-d", "--domain", required=True)
 parser.add_argument("-f", "--email-format", default="first.last", choices=email_formats.keys())
 args = parser.parse_args()
 
 queryid = get_query_id(args.company_id)
 
-api = API()
+api = API(args.debug)
 with open(args.output, 'w+') as f:
     writer = csv.DictWriter(f, ['name','first','last','email','position'])
     writer.writeheader()
