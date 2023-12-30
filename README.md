@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="https://raw.finnwea.com/vector-shields-v2/?firstText=LinkedIn&secondText=Crawler" />
+    <img src="https://raw.finnwea.com/vector-shields-v2/?firstText=LinkedIn&secondText=Crawler" width="475"/>
 </p>
 <p align="center">
     <a href="LICENSE"><img src="https://raw.finnwea.com/vector-shields-v2/?firstText=License&secondText=MIT" /></a>
@@ -61,7 +61,7 @@ make tests
 
 ## Issues
 
-Issues or new features can be reported via the [Github issue tracker](/issues). Please make sure your issue or feature has not yet been reported by anyone else before submitting a new one.
+Issues or new features can be reported via the [Github issue tracker](https://github.com/NorthwaveSecurity/linkedin-crawler/issues). Please make sure your issue or feature has not yet been reported by anyone else before submitting a new one.
 
 ## License
 
