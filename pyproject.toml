@@ -2,10 +2,11 @@
 name = "LinkedIn Crawler"
 version = "1.0"
 dependencies = [
-    "dynaconf",   # Config files
-    "pytest",     # Tests
-    "pytest-cov", # Code coverage
-    "click"       # CLI interface
+    "dynaconf",       # Config files
+    "pytest",         # Tests
+    "pytest-cov",     # Code coverage
+    "click",          # CLI interface
+    "requests-mock"   # Mock requests
 ]
 authors = [
     { name = "Jan-Jaap Korpershoek" },

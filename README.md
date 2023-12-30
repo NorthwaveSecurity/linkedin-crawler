@@ -49,7 +49,7 @@ Search for a company's employees on LinkedIn and copy the company ID from the UR
 ![linkedin search](images/linkedin_search.png)
 
 ```
-linkedin_crawler <company_id> -d <email_domain>
+linkedin_crawler <company_id> <email_domain>
 linkedin_crawler --help
 ```
 

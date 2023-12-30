@@ -13,10 +13,16 @@ def split_name(name):
     return [x.replace(',', '').strip() for x in re.findall(name_regex, name)]
 
 
+class NoNameException(Exception):
+    pass
+
+
 def get_email(email_format, domain, name):
     names = split_name(name)
     # Remove other initials
     names = [x for x in names if '.' not in x]
+    if not names:
+        raise NoNameException()
     # Strip maiden name
     names[-1] = names[-1].split('-')[0]
 

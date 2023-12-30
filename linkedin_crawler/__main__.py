@@ -2,6 +2,7 @@ from .api import API, get_query_id
 from . import write_csv
 from .format_emails import email_formats
 import click
+import logging
 
 @click.command()
 @click.argument("company_id")
@@ -10,7 +11,11 @@ import click
 @click.option("--debug/--no-debug")
 @click.option("-f", "--email-format", default="first.last", type=click.Choice(email_formats.keys()))
 def main(company_id, output, debug, domain, email_format):
-    write_csv(company_id, output, domain, email_format, debug)
+    if debug:
+        logging.setLevel(logging.DEBUG)
+
+    with open(output, 'w+') as f:
+        write_csv(company_id, f, domain, email_format, debug)
 
 
 if __name__ == "__main__":

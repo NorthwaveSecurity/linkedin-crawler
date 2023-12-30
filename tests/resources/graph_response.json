@@ -1,0 +1,95 @@
+{
+  "data": {
+    "_recipeType": "com.linkedin.c293aa010e51bae32433eeb13b1682fa",
+    "_type": "com.linkedin.c293aa010e51bae32433eeb13b1682fa",
+    "searchDashClustersByAll": {
+      "_type": "com.linkedin.restli.common.CollectionResponse",
+      "metadata": {
+        "entityResultAttributes": null,
+        "totalResultCount": 2,
+        "searchAlert": null,
+        "_type": "com.linkedin.voyager.dash.search.SearchClusterCollectionMetadata",
+        "secondaryFilterCluster": null,
+        "_recipeType": "com.linkedin.dfce49e2c6bb412fb4161cbbc7190d0d",
+        "lazyRightRail": null,
+        "queryType": null,
+        "primaryResultType": "PEOPLE",
+        "paginationToken": null,
+        "primaryFilterCluster": null,
+        "blockedQuery": false,
+        "entityActionButtonStyle": null,
+        "searchId": "6cde76a1-1593-4e0f-b65d-881142231e30",
+        "filterAppliedCount": 0,
+        "clusterTitleFontSize": null,
+        "simpleInsightAttributes": null,
+        "knowledgeCardRightRail": null
+      },
+      "paging": {
+        "count": 2,
+        "start": 0,
+        "_type": "com.linkedin.restli.common.CollectionMetadata",
+        "total": 2,
+        "_recipeType": "com.linkedin.81b214c2cdd4f02cdb7d827958d2f3a1"
+      },
+      "_recipeType": "com.linkedin.5f1d22f924ecb6a031ee124b8b767900",
+      "elements": [
+        {
+          "image": null,
+          "quickFilterActions": [],
+          "clusterRenderType": "LIST",
+          "dismissable": false,
+          "totalResultCount": null,
+          "_type": "com.linkedin.voyager.dash.search.SearchClusterViewModel",
+          "controlName": null,
+          "description": null,
+          "_recipeType": "com.linkedin.5c853aba2154c55483e72bf6cdfaaf3e",
+          "title": null,
+          "actionTypeName": null,
+          "navigationText": null,
+          "feature": null,
+          "navigationCardAction": null,
+          "position": 191,
+          "items": [
+            {
+              "_type": "com.linkedin.voyager.dash.search.SearchItem",
+              "item": {
+                "entityResult": {
+                  "title": {
+                    "text": "Jan de Vries"
+                  },
+                  "primarySubtitle": {
+                    "text": "Does something at this company"
+                  },
+                  "secondarySubtitle": {
+                    "text": "Rotterdam"
+                  }
+                }
+              },
+              "position": 1,
+              "_recipeType": "com.linkedin.edd11a570456ce19ca1f5ec3c9bb03c1"
+            },
+            {
+              "_type": "com.linkedin.voyager.dash.search.SearchItem",
+              "item": {
+                "entityResult": {
+                  "title": {
+                    "text": "A. B."
+                  },
+                  "primarySubtitle": {
+                    "text": "Does something at this company"
+                  },
+                  "secondarySubtitle": {
+                    "text": "Amsterdam"
+                  }
+                }
+              },
+              "position": 4,
+              "_recipeType": "com.linkedin.edd11a570456ce19ca1f5ec3c9bb03c1"
+            }
+          ],
+          "results": []
+        }
+      ]
+    }
+  }
+}

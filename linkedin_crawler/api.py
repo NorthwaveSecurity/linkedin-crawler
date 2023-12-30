@@ -11,10 +11,16 @@ headers = {
     "Csrf-Token": cookies['JSESSIONID'].replace('"','')
 }
 
-def get_query_id(company_id):
-    req1 = f"https://www.linkedin.com/search/results/people/?currentCompany=[\"{company_id}\"]&origin=COMPANY_PAGE_CANNED_SEARCH&sid=CL@"
+graph_api_url = "https://www.linkedin.com/voyager/api/graphql"
+people_url = "https://www.linkedin.com/search/results/people/"
+
+def get_query_id(company_id, debug=False):
+    req1 = f"{people_url}?currentCompany=[\"{company_id}\"]&origin=COMPANY_PAGE_CANNED_SEARCH&sid=CL@"
     queryid_regex = re.compile("voyagerSearchDashClusters\.[^\"]+")
     resp = requests.get(req1, cookies=cookies, headers=headers)
+    if debug:
+        with open('people_result.html', 'w') as f:
+            f.write(resp.text)
     return queryid_regex.search(resp.text).group(0)
 
 @dataclass
@@ -29,10 +35,10 @@ class API:
 
     def __init__(self, debug):
         self.debug = debug
-        self.json_output = "output.json"
+        self.json_output = "graph_response.json"
 
     def get_results(self, company_id, queryid, start=0):
-        req2 = f"https://www.linkedin.com/voyager/api/graphql?variables=(start:{start},origin:COMPANY_PAGE_CANNED_SEARCH,query:(flagshipSearchIntent:SEARCH_SRP,queryParameters:List((key:currentCompany,value:List({company_id})),(key:resultType,value:List(PEOPLE))),includeFiltersInResponse:false))&&queryId={queryid}"
+        req2 = f"{graph_api_url}?variables=(start:{start},origin:COMPANY_PAGE_CANNED_SEARCH,query:(flagshipSearchIntent:SEARCH_SRP,queryParameters:List((key:currentCompany,value:List({company_id})),(key:resultType,value:List(PEOPLE))),includeFiltersInResponse:false))&&queryId={queryid}"
         resp = requests.get(req2, cookies=cookies, headers=headers).json()
         if self.debug:
             with open(self.json_output, 'w+') as f:
