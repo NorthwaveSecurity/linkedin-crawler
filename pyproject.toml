@@ -1,0 +1,19 @@
+[project]
+name = "LinkedIn Crawler"
+version = "1.0"
+dependencies = [
+    "dynaconf",   # Config files
+    "pytest",     # Tests
+    "pytest-cov", # Code coverage
+    "click"       # CLI interface
+]
+authors = [
+    { name = "Jan-Jaap Korpershoek" },
+]
+description = """Obtain employee names and email addresses based on LinkedIn data"""
+readme = "README.md"
+license = {file = "LICENSE"}
+keywords = []
+
+[project.scripts]
+linkedin_crawler = "linkedin_crawler:main"
