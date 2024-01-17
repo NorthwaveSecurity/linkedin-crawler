@@ -20,4 +20,4 @@ keywords = []
 packages = ["linkedin_crawler"]
 
 [project.scripts]
-linkedin_crawler = "linkedin_crawler:main"
+linkedin_crawler = "linkedin_crawler:__main__.main"
