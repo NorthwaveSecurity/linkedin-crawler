@@ -1,5 +1,5 @@
 [project]
-name = "LinkedIn Crawler"
+name = "linkedin_crawler"
 version = "1.0"
 dependencies = [
     "dynaconf",       # Config files
@@ -15,6 +15,9 @@ description = """Obtain employee names and email addresses based on LinkedIn dat
 readme = "README.md"
 license = {file = "LICENSE"}
 keywords = []
+
+[tool.setuptools]
+packages = ["linkedin_crawler"]
 
 [project.scripts]
 linkedin_crawler = "linkedin_crawler:main"

@@ -30,7 +30,7 @@ Obtain employee names and email addresses based on LinkedIn data.
 ## Installation
 
 ```
-pip install https://github.com/NorthwaveSecurity/linkedin-crawler
+pip install git+https://github.com/NorthwaveSecurity/linkedin-crawler
 ```
 
 or 
