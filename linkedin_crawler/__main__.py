@@ -12,7 +12,7 @@ import logging
 @click.option("-f", "--email-format", default="first.last", type=click.Choice(email_formats.keys()))
 def main(company_id, output, debug, domain, email_format):
     if debug:
-        logging.setLevel(logging.DEBUG)
+        logging.getLogger().setLevel(logging.DEBUG)
 
     with open(output, 'w+') as f:
         write_csv(company_id, f, domain, email_format, debug)

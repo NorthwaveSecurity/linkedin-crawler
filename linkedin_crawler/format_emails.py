@@ -5,6 +5,7 @@ email_formats = {
     "first.middle.last": (lambda names: ".".join(names)),
     "f.middlelast": (lambda names: names[0][0] + "." + "".join(names[1:])),
     "first.last": (lambda names: names[0] + "." + "".join(names[1:])),
+    "flast": (lambda names: names[0] + "".join(names[1:])),
 }
 
 name_regex = re.compile(r'[\w\.\-,]+')

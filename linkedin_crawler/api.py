@@ -52,9 +52,13 @@ class API:
                 item = item['item']['entityResult']
                 if not item:
                     continue
+                try:
+                    position = item['primarySubtitle']['text']
+                except TypeError:
+                    position = None
                 yield Person(
                     name=item['title']['text'],
-                    position=item['primarySubtitle']['text'],
+                    position=position,
                 )
 
     def get_all(self, company_id, queryid):
