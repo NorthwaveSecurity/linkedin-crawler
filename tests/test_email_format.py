@@ -17,3 +17,4 @@ def test_email_format():
 def test_maiden_name():
     name = "Ingrid van den Berg-de Jong"
     assert get_email("flast", "", name) == "iberg@"
+    assert get_email("first.middle.last", "", name) == "ingrid.van.den.berg@"
