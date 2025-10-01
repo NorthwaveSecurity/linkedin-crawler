@@ -4,9 +4,11 @@ email_formats = {
     "f.middle.last": (lambda names: names[0][0] + "." + ".".join(names[1:])),
     "first.middle.last": (lambda names: ".".join(names)),
     "f.middlelast": (lambda names: names[0][0] + "." + "".join(names[1:])),
-    "first.last": (lambda names: names[0] + "." + "".join(names[1:])),
+    "first.last": (lambda names: names[0] + "." + names[-1]),
     "firstlast": (lambda names: names[0] + "".join(names[1:])),
-    "flast": (lambda names: names[0][0] + "".join(names[1:])),
+    "fmiddlelast": (lambda names: names[0][0] + "".join(names[1:])),
+    "flast": (lambda names: names[0][0] + names[-1]),
+    "f.last": (lambda names: names[0][0] + "." + names[-1]),
 }
 
 name_regex = re.compile(r'[\w\.\-,]+')
@@ -21,10 +23,14 @@ class NoNameException(Exception):
 
 def get_email(email_format, domain, name, strip_maiden_name=True):
     names = split_name(name)
-    # Remove other initials
-    names = [x for x in names if '.' not in x]
     if not names:
         raise NoNameException()
+    # Remove other initials
+    names = [names[0]] + [x for x in names[1:] if '.' not in x]
+    if not names:
+        raise NoNameException()
+    # Strip dot from first name
+    names[0] = names[0].rstrip('.')
     # Strip maiden name
     if strip_maiden_name:
         names[-1] = names[-1].split('-')[0]
