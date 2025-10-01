@@ -27,7 +27,7 @@ def get_email(email_format, domain, name, strip_maiden_name=True):
         raise NoNameException()
     # Remove other initials
     names = [names[0]] + [x for x in names[1:] if '.' not in x]
-    if not names:
+    if len(names) < 2:
         raise NoNameException()
     # Strip dot from first name
     names[0] = names[0].rstrip('.')
