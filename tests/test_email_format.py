@@ -13,3 +13,7 @@ def test_email_format():
     name = "Jan Jansen"
     assert get_email("flast", "", name) == "jjansen@"
     assert get_email("fmiddlelast", "", name) == "jjansen@"
+
+def test_maiden_name():
+    name = "Ingrid van den Berg-de Jong"
+    assert get_email("flast", "", name) == "iberg@"

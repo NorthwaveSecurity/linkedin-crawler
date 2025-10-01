@@ -11,7 +11,7 @@ def write_csv(company_id, output, domain, email_format, debug=False):
         if person.name == "LinkedIn Member":
             continue
         try:
-            names = split_name(person.name)
+            names = list(split_name(person.name))
             writer.writerow({
                 'name':person.name,
                 'first': names[0],

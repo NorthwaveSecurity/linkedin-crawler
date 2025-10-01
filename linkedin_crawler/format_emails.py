@@ -13,8 +13,18 @@ email_formats = {
 
 name_regex = re.compile(r'[\w\.\-,]+')
 
-def split_name(name):
-    return [x.replace(',', '').strip() for x in re.findall(name_regex, name)]
+def split_name(name, strip_maiden_name=True):
+    for i, x in enumerate(re.findall(name_regex, name)):
+        x = x.replace(',', '').strip()
+        if i > 0 and '.' in x:
+            # Skip initials after the first name
+            continue
+        if strip_maiden_name and '-' in x:
+            x = x.split('-')[0]
+            yield x
+            break
+        x = x.rstrip('.')
+        yield x
 
 
 class NoNameException(Exception):
@@ -22,18 +32,9 @@ class NoNameException(Exception):
 
 
 def get_email(email_format, domain, name, strip_maiden_name=True):
-    names = split_name(name)
-    if not names:
-        raise NoNameException()
-    # Remove other initials
-    names = [names[0]] + [x for x in names[1:] if '.' not in x]
+    names = list(split_name(name, strip_maiden_name=strip_maiden_name))
     if len(names) < 2:
         raise NoNameException()
-    # Strip dot from first name
-    names[0] = names[0].rstrip('.')
-    # Strip maiden name
-    if strip_maiden_name:
-        names[-1] = names[-1].split('-')[0]
 
     name = email_formats[email_format](names)
     name = name.lower().replace("ö", "oe").replace("ü", "ue").replace("ä", "ae")
