@@ -1,4 +1,3 @@
-from .api import API, get_query_id
 from . import write_csv
 from .format_emails import email_formats
 import click

@@ -1,15 +1,13 @@
 import csv
 import logging
 from .format_emails import get_email, split_name, NoNameException
-from .api import API, get_query_id
+from .api import API
 
 def write_csv(company_id, output, domain, email_format, debug=False):
-    queryid = get_query_id(company_id, debug=debug)
-
     api = API(debug)
     writer = csv.DictWriter(output, ['name','first','last','email','position'])
     writer.writeheader()
-    for person in api.get_all(company_id, queryid):
+    for person in api.get_all(company_id):
         if person.name == "LinkedIn Member":
             continue
         try:
